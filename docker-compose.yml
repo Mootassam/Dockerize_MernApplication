@@ -1,0 +1,27 @@
+version: "3.3"
+services:
+  api:
+    build: ./api
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    volumes:
+      - ./api:/upload
+    environment:
+      DATABASE_CONNECTION: mongodb://db/developmentLigue
+  db:
+    image: mongo:4.0-xenial
+    ports:
+      - 2717:27017
+    restart: unless-stopped
+    volumes:
+      - developmentligue:/data/db
+  web:
+    build: ./backoffice
+    ports:
+      - 80:80
+    restart: unless-stopped
+
+volumes:
+  developmentligue:
+  upload:
